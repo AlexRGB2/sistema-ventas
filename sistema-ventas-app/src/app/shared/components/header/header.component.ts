@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((isLogged: boolean) => {
         this.isLogged = isLogged;
-        console.log('IsLogged', this.isLogged);
       });
 
     //* Obtener información del usuario.
@@ -36,7 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: any) => {
         this.data = data;
-        console.log('Data', this.data);
       });
   }
 

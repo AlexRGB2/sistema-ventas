@@ -31,8 +31,12 @@ class AuthController {
 
         // * Enviar el JWT
         res.json({ message: 'Autenticación correcta', token });
+      } else {
+        return res
+          .status(404)
+          .json({ message: 'El usuario y/o contraseña son incorrectos' });
       }
-    } catch (error: any) {
+    } catch (error) {
       return res.status(500).json({ message: 'Error interno' });
     }
   }
