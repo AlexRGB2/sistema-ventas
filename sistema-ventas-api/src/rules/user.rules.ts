@@ -29,15 +29,6 @@ export const newUserRules = () => {
       .withMessage('El username no debe estar vacío.')
       .isLength({ min: 3, max: 150 })
       .withMessage('Rango Incorrecto'),
-    body('email')
-      .exists()
-      .withMessage('Campo Requerido')
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage('El email no debe estar vacío')
-      .isEmail()
-      .withMessage('Debe tener el formato de un correo electrónico.'),
     body('rol')
       .exists()
       .withMessage('Campo Requerido')
@@ -80,15 +71,6 @@ export const updateUserRules = () => {
       .not()
       .isEmpty()
       .withMessage('Los apellidos no deben estar vacíos.'),
-    body('email')
-      .exists()
-      .withMessage('Campo Requerido')
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage('El email no debe estar vacío')
-      .isEmail()
-      .withMessage('Debe tener el formato de un correo electrónico.'),
     body('rol')
       .exists()
       .withMessage('Campo Requerido')

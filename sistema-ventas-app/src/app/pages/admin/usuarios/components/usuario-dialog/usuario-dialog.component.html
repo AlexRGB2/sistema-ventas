@@ -26,28 +26,19 @@
       *ngIf="!isUpdateMode"
     >
       <mat-label>Nombre de Usuario</mat-label>
-      <input type="text" formControlName="username" matInput />
+      <input type="email" formControlName="username" matInput />
       <mat-error>
         {{ baseForm.getErrorMessage(userForm.get("username")) }}
       </mat-error>
     </mat-form-field>
 
-    <!-- Email -->
-    <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input type="email" formControlName="email" matInput />
-      <mat-error>
-        {{ baseForm.getErrorMessage(userForm.get("email")) }}
-      </mat-error>
-    </mat-form-field>
-
     <!-- Rol -->
     <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Roles</mat-label>
-      <mat-select formControlName="rol" multiple>
-        <mat-option value="Administrador">Administrador</mat-option>
-        <mat-option value="Ventas">Ventas</mat-option>
-        <mat-option value="Reportes">Reportes</mat-option>
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="rol">
+        <mat-option value="1">Administrador</mat-option>
+        <mat-option value="2">Ventas</mat-option>
+        <mat-option value="3">Reportes</mat-option>
       </mat-select>
       <mat-error>
         {{ baseForm.getErrorMessage(userForm.get("rol")) }}

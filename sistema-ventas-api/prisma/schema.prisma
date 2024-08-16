@@ -7,15 +7,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Rol {
+  cverol      Int    @id @default(autoincrement()) @db.SmallInt
+  descripcion String @db.VarChar(250)
+  clave       String @db.VarChar(45)
+  activo      Boolean @db.Boolean
+
+  usuario     Usuario[]
+
+  @@map("rol")
+}
+
+model Categoria {
+  cvecategoria  Int     @id @default(autoincrement()) @db.SmallInt
+  descripcion   String  @db.VarChar(250)
+  activo        Boolean @db.Boolean
+
+  producto      Producto[]
+
+  @@map("categoria")
+}
+
+model Producto {
+  cveproducto   Int         @id @default(autoincrement()) @db.Integer
+  descripcion   String      @db.VarChar(350)
+  precio        Decimal     @db.Decimal()
+  cantidad      Int         @db.Integer
+  cvecategoria  Int         @db.SmallInt 
+
+  detalle_venta DetalleVenta[]
+  categoria     Categoria   @relation(fields: [cvecategoria], references: [cvecategoria])
+
+  @@map("producto")
+}
+
 model Usuario {
-  cveusuario    Int       @id @default(autoincrement()) @db.SmallInt
+  cveusuario    Int       @id @default(autoincrement()) @db.Integer
   nombre        String    @db.VarChar(250)
   apellidos     String    @db.VarChar(600)
-  username      String?   @db.VarChar(150)
-  password      String?   @db.VarChar(800)
-  fecharegistro DateTime? @default(now()) @db.Date
-  email         String
-  rol           String[]
+  username      String    @db.VarChar(150)
+  password      String    @db.VarChar(800)
+  fecharegistro DateTime  @default(now()) @db.Timestamp()
+  cverol        Int       @db.SmallInt
 
-  @@map("tbl_usuario")
+  venta         Venta[]
+  rol           Rol       @relation(fields: [cverol], references: [cverol])
+
+  @@map("usuario")
+}
+
+model Venta {
+  cveventa      Int             @id @default(autoincrement()) @db.Integer
+  totalventa    Decimal         @db.Decimal()
+  fechaventa    DateTime        @default(now()) @db.Timestamp()
+  cveusuario    Int             @db.Integer
+
+  detalle_venta DetalleVenta[]
+  usuario       Usuario         @relation(fields: [cveusuario], references: [cveusuario])
+
+  @@map("venta")
+}
+
+model DetalleVenta {
+  cvedetalleventa Int      @id @default(autoincrement()) @db.Integer
+  cantidad        Int      @db.Integer
+  precioproducto  Decimal  @db.Decimal()
+  cveproducto     Int      @db.Integer
+  cveventa        Int      @db.Integer
+
+  producto        Producto @relation(fields: [cveproducto], references: [cveproducto])
+  venta           Venta    @relation(fields: [cveventa], references: [cveventa])
+
+  @@map("detalle_venta")
 }

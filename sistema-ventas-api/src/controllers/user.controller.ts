@@ -10,7 +10,6 @@ class UserController {
           cveusuario: true,
           nombre: true,
           apellidos: true,
-          email: true,
           rol: true,
           username: true,
         },
@@ -26,7 +25,7 @@ class UserController {
 
   public async newUser(req: Request, res: Response) {
     try {
-      const { nombre, apellidos, username, email, rol, password } = req.body;
+      const { nombre, apellidos, username, rol, password } = req.body;
       // Cifra la contraseña
       const hashedPassword = await utils.hashPassword(password);
 
@@ -36,8 +35,7 @@ class UserController {
           nombre: nombre,
           apellidos: apellidos,
           username: username,
-          email: email,
-          rol: rol,
+          cverol: Number.parseInt(rol),
           password: hashedPassword,
         },
       });
@@ -54,13 +52,14 @@ class UserController {
         .status(200)
         .json({ message: 'Usuario guardado correctamente' });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: 'Error interno' });
     }
   }
 
   public async updateUser(req: Request, res: Response) {
     try {
-      const { cveusuario, nombre, apellidos, email, rol } = req.body;
+      const { cveusuario, nombre, apellidos, rol } = req.body;
 
       // Actualiza al usuario
       const updateUser = await prisma.usuario.update({
@@ -68,8 +67,7 @@ class UserController {
         data: {
           nombre: nombre,
           apellidos: apellidos,
-          email: email,
-          rol: rol,
+          cverol: Number.parseInt(rol),
         },
       });
 

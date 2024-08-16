@@ -37,6 +37,7 @@ class AuthController {
           .json({ message: 'El usuario y/o contraseña son incorrectos' });
       }
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: 'Error interno' });
     }
   }

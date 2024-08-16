@@ -25,9 +25,8 @@ export class UsuarioDialogComponent implements OnInit, OnDestroy {
     cveusuario: [''],
     nombre: ['', [Validators.required, Validators.minLength(3)]],
     apellidos: ['', [Validators.required, Validators.minLength(3)]],
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    rol: [[], [Validators.required]],
+    username: ['', [Validators.required, Validators.email]],
+    rol: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', [Validators.required]],
   });
@@ -53,13 +52,13 @@ export class UsuarioDialogComponent implements OnInit, OnDestroy {
       this.actionTodo = Action.EDIT;
       this.isUpdateMode = true;
 
+      //console.log(this.data.user);
       this.userForm.patchValue({
         cveusuario: this.data.user.cveusuario,
         nombre: this.data.user.nombre,
         apellidos: this.data.user.apellidos,
         username: this.data.user.username,
-        email: this.data.user.email,
-        rol: this.data.user.rol || [],
+        rol: this.data.user.rol.cverol.toString(),
       });
     } else {
       this.titleButton = 'Guardar';
