@@ -13,10 +13,10 @@ export class DeleteDialogComponent {
   ) {}
 
   onNoClick(): void {
-    this.dialogRef.close(false); // El usuario cancela
+    this.dialogRef.close(false);
   }
 
   onYesClick(): void {
-    this.dialogRef.close(true); // El usuario confirma
+    this.dialogRef.close(true);
   }
 }
