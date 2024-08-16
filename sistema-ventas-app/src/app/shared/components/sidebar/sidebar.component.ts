@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
+  @Output() toggleSidenav = new EventEmitter<void>();
   menus: any[] = [];
 
   constructor() {}
@@ -25,5 +26,9 @@ export class SidebarComponent implements OnInit {
         { icon: 'content_paste', name: 'Reportes', route: 'ventas/reportes' },
       ]
     );
+  }
+
+  onToggleSidenav() {
+    this.toggleSidenav.emit();
   }
 }
