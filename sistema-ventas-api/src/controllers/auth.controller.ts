@@ -22,7 +22,7 @@ class AuthController {
       }
 
       // * Verificar la contraseña
-      if (await utils.checkPassword(password, usuario.password)) {
+      if (await utils.checkPassword(password, usuario.password!)) {
         // * Si la contraseña es correcta generar el payload con información
         const { password, fecharegistro, ...newUser } = usuario;
 

@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>Usuario</h1>
+<mat-dialog-content>
+  <form [formGroup]="userForm" (submit)="onSave()">
+    <!-- Nombre -->
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input type="text" formControlName="nombre" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("nombre")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Apellidos -->
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Apellidos</mat-label>
+      <input type="text" formControlName="apellidos" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("apellidos")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Username -->
+    <mat-form-field
+      class="full-width"
+      appearance="outline"
+      *ngIf="!isUpdateMode"
+    >
+      <mat-label>Nombre de Usuario</mat-label>
+      <input type="text" formControlName="username" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("username")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" formControlName="email" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("email")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Rol -->
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="rol" multiple>
+        <mat-option value="Administrador">Administrador</mat-option>
+        <mat-option value="Ventas">Ventas</mat-option>
+        <mat-option value="Reportes">Reportes</mat-option>
+      </mat-select>
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("rol")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Contraseña -->
+    <mat-form-field
+      class="full-width"
+      appearance="outline"
+      *ngIf="!isUpdateMode"
+    >
+      <mat-label>Contraseña</mat-label>
+      <input type="password" formControlName="password" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("password")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Confirmar Contraseña -->
+    <mat-form-field
+      class="full-width"
+      appearance="outline"
+      *ngIf="!isUpdateMode"
+    >
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input type="password" formControlName="confirmPassword" matInput />
+      <mat-error>
+        {{ baseForm.getErrorMessage(userForm.get("confirmPassword")) }}
+      </mat-error>
+    </mat-form-field>
+
+    <div align="center">
+      <button
+        mat-flat-button
+        type="button"
+        color="warn"
+        class="me-2"
+        *ngIf="!isUpdateMode"
+        (click)="userForm.reset()"
+      >
+        Limpiar
+      </button>
+      <button mat-flat-button type="submit">{{ titleButton }}</button>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

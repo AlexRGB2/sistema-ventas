@@ -24,9 +24,8 @@ export class BaseForm {
           required: 'Campo Requerido',
           email: 'Formato Invalido',
           pattern: 'Formato Invalido',
-          min: 'El rango no es correcto',
-          max: 'El rango no es correcto',
-          minlenght: 'Formato invalido',
+          minlength: 'El rango no es correcto',
+          maxlength: 'El rango no es correcto',
         };
 
         const errorKey = Object.keys(errors).find(Boolean);
