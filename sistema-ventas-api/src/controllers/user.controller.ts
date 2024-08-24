@@ -5,14 +5,21 @@ import { utils } from '../utils/utils';
 class UserController {
   public async listUsers(req: Request, res: Response) {
     try {
+      const token = <string>req.headers['auth'];
+
+      const currentUser = utils.getPayload(token);
+
       const listUsers = await prisma.usuario.findMany({
         select: {
           cveusuario: true,
           nombre: true,
           apellidos: true,
-          rol: true,
           username: true,
+          fecharegistro: true,
+          cverol: true,
+          rol: true,
         },
+        where: { cveusuario: { not: currentUser.cveusuario } },
         orderBy: { cveusuario: 'asc' },
       });
 
@@ -82,7 +89,7 @@ class UserController {
 
   public async deleteUser(req: Request, res: Response) {
     try {
-      const { cveusuario } = req.body;
+      const { cveusuario } = req.params;
 
       if (!cveusuario || isNaN(Number(cveusuario))) {
         return res.status(400).json({ message: 'ID de usuario inválido.' });

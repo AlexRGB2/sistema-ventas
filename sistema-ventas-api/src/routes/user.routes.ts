@@ -1,10 +1,6 @@
 import { Router } from 'express';
 import { userController } from '../controllers/user.controller';
-import {
-  deleteUserRules,
-  newUserRules,
-  updateUserRules,
-} from '../rules/user.rules';
+import { newUserRules, updateUserRules } from '../rules/user.rules';
 import { validate } from '../middlewares/validator.check';
 
 class UserRoutes {
@@ -199,12 +195,7 @@ class UserRoutes {
      *       500:
      *         description: Error interno del servidor
      */
-    this.router.post(
-      '/deleteUser',
-      deleteUserRules(),
-      [validate],
-      userController.deleteUser
-    );
+    this.router.delete('/deleteUser/:cveusuario', userController.deleteUser);
   }
 }
 

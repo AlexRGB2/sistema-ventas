@@ -80,15 +80,3 @@ export const updateUserRules = () => {
       .withMessage('El rol no debe estar vacío.'),
   ];
 };
-
-export const deleteUserRules = () => {
-  return [
-    body('cveusuario')
-      .exists()
-      .withMessage('Campo Requerido')
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage('La cveusuario no debe estar vacía.'),
-  ];
-};

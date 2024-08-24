@@ -7,7 +7,12 @@
             <h3>Inicio de Sesión</h3>
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>Usuario</mat-label>
-              <input type="text" matInput formControlName="username" />
+              <input
+                type="text"
+                matInput
+                formControlName="username"
+                autocomplete="off"
+              />
               <mat-error>
                 {{ baseForm.getErrorMessage(loginForm.get("username")) }}
               </mat-error>
@@ -19,6 +24,7 @@
                 [type]="hide ? 'password' : 'text'"
                 matInput
                 formControlName="password"
+                autocomplete="new-password"
               />
               <button
                 type="button"

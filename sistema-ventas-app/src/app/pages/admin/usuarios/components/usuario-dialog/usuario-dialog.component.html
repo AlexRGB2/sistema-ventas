@@ -20,11 +20,7 @@
     </mat-form-field>
 
     <!-- Username -->
-    <mat-form-field
-      class="full-width"
-      appearance="outline"
-      *ngIf="!isUpdateMode"
-    >
+    <mat-form-field class="full-width" appearance="outline">
       <mat-label>Nombre de Usuario</mat-label>
       <input type="email" formControlName="username" matInput />
       <mat-error>
@@ -36,9 +32,11 @@
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Rol</mat-label>
       <mat-select formControlName="rol">
-        <mat-option value="1">Administrador</mat-option>
-        <mat-option value="2">Ventas</mat-option>
-        <mat-option value="3">Reportes</mat-option>
+        @for (rol of roles; track $index;) {
+        <mat-option [value]="rol.cverol">
+          {{ rol.descripcion + " - " + rol.clave }}
+        </mat-option>
+        }
       </mat-select>
       <mat-error>
         {{ baseForm.getErrorMessage(userForm.get("rol")) }}
@@ -49,10 +47,15 @@
     <mat-form-field
       class="full-width"
       appearance="outline"
-      *ngIf="!isUpdateMode"
+      *ngIf="actionTodo === 'new'"
     >
       <mat-label>Contraseña</mat-label>
-      <input type="password" formControlName="password" matInput />
+      <input
+        type="password"
+        formControlName="password"
+        matInput
+        autocomplete="new-password"
+      />
       <mat-error>
         {{ baseForm.getErrorMessage(userForm.get("password")) }}
       </mat-error>
@@ -62,7 +65,7 @@
     <mat-form-field
       class="full-width"
       appearance="outline"
-      *ngIf="!isUpdateMode"
+      *ngIf="actionTodo === 'new'"
     >
       <mat-label>Confirmar Contraseña</mat-label>
       <input type="password" formControlName="confirmPassword" matInput />
@@ -77,7 +80,7 @@
         type="button"
         color="warn"
         class="me-2"
-        *ngIf="!isUpdateMode"
+        *ngIf="actionTodo === 'new'"
         (click)="userForm.reset()"
       >
         Limpiar

@@ -23,6 +23,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { tokenInterceptor } from './shared/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch(), withInterceptors([loadingInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([loadingInterceptor, tokenInterceptor])
+    ),
   ],
   bootstrap: [AppComponent],
 })

@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialogComponent } from './components/usuario-dialog/usuario-dialog.component';
 import { UsuarioService } from './services/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @Component({
@@ -53,9 +53,12 @@ export class UsuariosComponent implements OnInit, OnDestroy, AfterViewInit {
       data: { user },
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.getUsers();
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getUsers();
+      });
   }
 
   ngOnDestroy(): void {
@@ -64,9 +67,12 @@ export class UsuariosComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe((resp) => {
-      this.dataSource.data = resp;
-    });
+    this.userService
+      .getUsers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((resp) => {
+        this.dataSource.data = resp;
+      });
   }
 
   confirmDelete(userId: number, username: string) {
@@ -77,28 +83,28 @@ export class UsuariosComponent implements OnInit, OnDestroy, AfterViewInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.deleteUser(userId);
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result) {
+          this.deleteUser(userId);
+        }
+      });
   }
 
   deleteUser(cveUsuario: number) {
-    const cveU = { cveusuario: cveUsuario };
-
-    this.userService.deleteUser(cveU).subscribe((resp) => {
-      this.snackBar
-        .open(resp.message, 'Aceptar', {
-          duration: 2000,
+    this.userService
+      .deleteUser(cveUsuario)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((resp) => {
+        this.snackBar.open(resp.message, 'Aceptar', {
+          duration: 1000,
           horizontalPosition: 'end',
           verticalPosition: 'top',
           panelClass: 'snackbar-success',
-        })
-        .afterDismissed()
-        .subscribe(() => {
-          this.getUsers();
         });
-    });
+        this.getUsers();
+      });
   }
 }
