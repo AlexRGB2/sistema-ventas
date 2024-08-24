@@ -5,7 +5,7 @@ import { utils } from '../utils/utils';
 export const jwtCheck = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = <string>req.headers['auth'];
-    // TODO: Obtener la información del token
+    // *: Obtener la información del token
     let payload = utils.getPayload(token);
 
     // * RefreshToken
