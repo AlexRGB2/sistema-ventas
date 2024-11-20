@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:d2CKAf8yGvXVThu@sistema-ventas.crq8kqsgsklk.us-west-2.rds.amazonaws.com:5432/sistema_ventas_2?schema=public"
+  url      = "postgresql://postgres:linux1523@postgres17:5432/sistema_ventas_2?schema=public"
 }
 
 model Rol {

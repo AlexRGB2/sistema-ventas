@@ -1,0 +1,43 @@
+services:
+  postgres17:
+    container_name: postgres17
+    image: postgres:17-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: linux1523
+      POSTGRES_DB: sistema_ventas_2
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - jamb
+  frontend:
+    container_name: sistema-ventas-app
+    build:
+      context: ./sistema-ventas-app
+      dockerfile: Dockerfile
+    ports:
+      - "4000:80"
+    networks:
+      - jamb
+    depends_on:
+      - backend
+    restart: always
+  backend:
+    container_name: sistema-ventas-api
+    build:
+      context: ./sistema-ventas-api
+      dockerfile: Dockerfile
+    ports:
+      - "3100:3000"
+    networks:
+      - jamb
+    depends_on:
+      - postgres17
+    restart: always
+volumes:
+  data-postgres:
+    name: data-postgres
+networks:
+  jamb:
