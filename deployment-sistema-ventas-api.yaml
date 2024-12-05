@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sistema-ventas-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sistema-ventas-api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: sistema-ventas-api
+    spec:
+      containers:
+      - image: alexrgb2/sistema-ventas-api
+        name: sistema-ventas-api
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources: {}
+status: {}

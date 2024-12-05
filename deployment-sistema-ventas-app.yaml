@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sistema-ventas-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sistema-ventas-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: sistema-ventas-app
+    spec:
+      containers:
+      - image: alexrgb2/sistema-ventas-app
+        name: sistema-ventas-app
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+status: {}

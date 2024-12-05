@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-12-03T06:26:20Z"
+  labels:
+    app: sistema-ventas-app
+  name: sistema-ventas-app
+  namespace: default
+  resourceVersion: "63926"
+  uid: 5b39854b-279f-4921-9565-7db53f7d2f6c
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.111.105.217
+  clusterIPs:
+  - 10.111.105.217
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31113
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: sistema-ventas-app
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

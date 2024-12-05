@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgressv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgressv
+  template:
+    metadata:
+      labels:
+        app: postgressv
+    spec:
+      containers:
+        - image: postgres:17-alpine
+          name: postgressv
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sistema-ventas
+                  key: password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: sistema-ventas
+                  key: database
+          volumeMounts:
+            - mountPath: /var/lib/postgres/data
+              name: data-postgres-sv
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-sql
+      volumes:
+        - name: data-postgres-sv
+          hostPath:
+            path: /var/lib/postgres/data
+            type: DirectoryOrCreate
+        - name: init-sql
+          configMap:
+            name: init-sql-config
